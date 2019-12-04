@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using THEFINALCAPSTONE.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using THEFINALCAPSTONE.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +12,11 @@ namespace THEFINALCAPSTONE.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarDbController : ControllerBase
+    public class CarController : ControllerBase
     {
         private readonly CarsDbContext _context;
 
-        public CarDbController(CarsDbContext context)
+        public CarController(CarsDbContext context)
         {
             _context = context;
         }
@@ -32,7 +32,13 @@ namespace THEFINALCAPSTONE.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Cars>> GetCarById(int id)
         {
-            return await _context.Cars.FindAsync(id);
+            var cars = await _context.Cars.ToListAsync();
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound();
+            }
+            return car;
         }
 
         //GET: api/Cars?terms=
