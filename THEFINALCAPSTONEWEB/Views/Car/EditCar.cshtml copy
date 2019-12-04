@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit";
+}
+@model Cars
+<h1>Edit Car</h1>
+
+<form action="../Car/AddCar" method="post">
+    <table class="table table-bordered">
+        <tr>
+            <th>Make: </th>
+            <td><input type="text" name="make" value="@Model.Make" required/></td>
+        </tr>
+        <tr>
+            <th>Model: </th>
+            <td><input type="text" name="model" value="@Model.Model" required/></td>
+        </tr>
+        <tr>
+            <th>Color: </th>
+            <td><input type="text" name="color" value="@Model.Color" required/></td>
+        </tr>
+        <tr>
+            <th>Year: </th>
+            <td><input type="number" name="year" value="@Model.Year" min="1900" max="@(DateTime.Now.Year+2)" required/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit" required/>
+</form>
